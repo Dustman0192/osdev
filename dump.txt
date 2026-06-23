@@ -1,0 +1,38 @@
+
+bootloader.img:     file format binary
+
+
+Disassembly of section .data:
+
+00007c00 <.data>:
+    7c00:	eb 0e                	jmp    0x7c10
+    7c02:	48                   	dec    eax
+    7c03:	65 6c                	gs ins BYTE PTR es:[edi],dx
+    7c05:	6c                   	ins    BYTE PTR es:[edi],dx
+    7c06:	6f                   	outs   dx,DWORD PTR ds:[esi]
+    7c07:	2c 20                	sub    al,0x20
+    7c09:	57                   	push   edi
+    7c0a:	6f                   	outs   dx,DWORD PTR ds:[esi]
+    7c0b:	72 6c                	jb     0x7c79
+    7c0d:	64 21 20             	and    DWORD PTR fs:[eax],esp
+    7c10:	31 d2                	xor    edx,edx
+    7c12:	8e da                	mov    ds,edx
+    7c14:	fc                   	cld
+    7c15:	be 02 7c bb 0f       	mov    esi,0xfbb7c02
+    7c1a:	00 b9 01 00 b4 02    	add    BYTE PTR [ecx+0x2b40001],bh
+    7c20:	cd 10                	int    0x10
+    7c22:	ac                   	lods   al,BYTE PTR ds:[esi]
+    7c23:	b4 09                	mov    ah,0x9
+    7c25:	cd 10                	int    0x10
+    7c27:	fe c2                	inc    dl
+    7c29:	80 fa 50             	cmp    dl,0x50
+    7c2c:	75 0b                	jne    0x7c39
+    7c2e:	30 d2                	xor    dl,dl
+    7c30:	fe c6                	inc    dh
+    7c32:	80 fe 19             	cmp    dh,0x19
+    7c35:	75 02                	jne    0x7c39
+    7c37:	30 f6                	xor    dh,dh
+    7c39:	81 fe 10 7c 75 d9    	cmp    esi,0xd9757c10
+    7c3f:	eb d4                	jmp    0x7c15
+	...
+    7dfd:	00 55 aa             	add    BYTE PTR [ebp-0x56],dl
