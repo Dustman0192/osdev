@@ -1,3 +1,3 @@
 # makefile for bootloader
-bootloader.img: bootloader.asm
-	nasm -f bin -o bootloader.img bootloader.asm
+boot.img: bootloader2.asm
+	nasm -f bin -o boot.img bootloader2.asm
