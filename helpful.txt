@@ -1,0 +1,7 @@
+Disassembly
+-----------
+Command:
+    objdump -b binary --adjust-vma=0x0007c00 -m i8086 -M intel -D bootloader.img
+
+Explanation:
+    Disassembles all of bootloader.img as a 16-bit binary starting at address offset 0x0007c00 using Intel syntax

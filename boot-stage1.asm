@@ -42,6 +42,8 @@ start:
 .disk_error:
     mov si, msg_error
     call    print_string
+    shr ax, 8
+    call    print_hex
     jmp $                   ; hang on error
 ; ===============================================================
 ; Functions
@@ -79,6 +81,7 @@ load_stage2:
     jnz .retry
 
     ; all retries failed
+.fail:
     stc                     ; set carry flag (error)
     ret
 
@@ -107,11 +110,30 @@ print_string:
     pop bp
     ret
 
+; Print hexadecimal number
+; Input: AX = number to print
+print_hex:
+    pusha
+    mov cx, 4           ; 4 hex digits
+    mov bx, hex_chars   ; Lookup table
+.loop:
+    rol ax, 4           ; Rotate left 4 bits
+    push ax
+    and al, 0x0F        ; Mask lower 4 bits
+    xlat                ; table look up on hex_chars, AL = [BX + AL] = [&hex_chars + al]
+    mov ah, 0x0E
+    int 0x10
+    pop ax
+    loop .loop
+    popa
+    ret
+
 ; Data
-boot_drive:  db 0
-msg_loading: db 'Loading stage 2...', 13, 10, 0
-msg_jumping: db 'Jumping to stage 2!', 13, 10, 0
-msg_error:   db 'Disk read error!', 0
+boot_drive:     db 0
+msg_loading:    db 'Loading stage 2...', 13, 10, 0
+msg_jumping:    db 'Jumping to stage 2!', 13, 10, 0
+msg_error:      db 'Disk read error! 0x', 0
+hex_chars:      db '0123456789ABCDEF'
 
     times 510 - ($ - $$)    db  0       ; pad to 512 bytes
                             dw  0xaa55  ; boot signature

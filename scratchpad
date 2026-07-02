@@ -1,0 +1,20 @@
+hex_chars   = '0123456789ABCDEF'
+ax          = 0x027a
+
+rol ax, 4
+ax = 0x27a0
+ah = 0x27
+al = 0xa0
+
+push ax
+ax = 0x27a0
+ah = 0x27
+al = 0xa0
+
+and al, 0x0f
+ax = 0x2700
+ah = 0x27
+al = 0x00
+
+xlat            al = [bx + al] = [(address of hex_chars) + 0] = 0
+al = 0x00
